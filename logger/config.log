@@ -1,0 +1,8 @@
+2020-02-21 09:26:39,721 - logging - INFO - Программа запустилась
+2020-02-21 09:26:39,722 - logging - DEBUG - Зашли в метод get_sum со значениями - 5
+2020-02-21 09:26:39,722 - logging - ERROR - unsupported operand type(s) for +: 'int' and 'str'
+Traceback (most recent call last):
+  File "c:\Users\User\Desktop\sapper-game\logging.py", line 7, in get_sum
+    result = x1 + sum(x2)
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+2020-02-21 09:26:39,723 - logging - INFO - Программа завершила свое выполнение
