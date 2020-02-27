@@ -1,29 +1,35 @@
 # coding: utf-8
-from pprint import pprint
-import httplib2 
-import apiclient.discovery
-from oauth2client.service_account import ServiceAccountCredentials	
 
-CREDENTIALS_FILE = 'myJson.json' 
+def AddMarkInTable(table, cell):
+    import httplib2 
+    import apiclient.discovery
+    from oauth2client.service_account import ServiceAccountCredentials	
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive'])
+    try:
+        #Ключ API для работы
+        CREDENTIALS_FILE = 'myJson.json' 
 
-httpAuth = credentials.authorize(httplib2.Http())
-service = apiclient.discovery.build('sheets', 'v4', http = httpAuth) 
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive'])
 
-spreadsheetId = 'token_Excel'
+        httpAuth = credentials.authorize(httplib2.Http())
+        service = apiclient.discovery.build('sheets', 'v4', http = httpAuth) 
 
-ranges = ["A1:A19"]
+        #Id таблицы
+        spreadsheetId = '1Hq6BrKSUtFnIV0_rdCaiH36s2NwdIbobTImhJnbeGOE'
           
-results = service.spreadsheets().values().batchUpdate(spreadsheetId = spreadsheetId, body = {
-    "valueInputOption": "USER_ENTERED",
-    "data": [
-        {"range": "B2:D5",
-         "majorDimension": "ROWS",     
-         "values": [
-                    ["B2", "C2", "D2"], 
-                    ['25', "=6*6", "15"]  
-                   ]}
-    ]
-}).execute()
+        rangeTab = str(table) + "!" + str(cell)
+
+        #Сам метод добавления
+        #Если пиздец! То лазить тут!
+        service.spreadsheets().values().batchUpdate(spreadsheetId = spreadsheetId, body = {
+            "valueInputOption": "USER_ENTERED",
+            "data": [
+                {"range": rangeTab,
+                 "majorDimension": "ROWS",     
+                 "values": [ ["1"] ]
+                }
+            ]
+        }).execute()
+    except e: 
+        print("Error Function AddMarkInTable!" + e)
 
